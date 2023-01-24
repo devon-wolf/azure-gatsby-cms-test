@@ -18,32 +18,19 @@
 variables:
   API_TOKEN: $DEPLOYMENT_TOKEN
   APP_PATH: '$CI_PROJECT_DIR'
-  OUTPUT_PATH: '$CI_PROJECT_DIR/public'
-
-image: node
+  OUTPUT_PATH: '$CI_PROJECT_DIR/builds'
 
 stages:          # List of stages for jobs, and their order of execution
-  - prep
-  - test
   - build
   - deploy
 
-install:
-  stage: prep
-  script:
-    - npm ci
-    - npm run format
-
-unit-test-job:
-  stage: test
-  script:
-    - npm run test
-
 build-job:
   stage: build
+  image: node
   script:
     - npm ci
     - npm run clean
+    - npm run format
     - npm run build
 
 deploy-job:
