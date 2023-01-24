@@ -28,6 +28,7 @@ stages:          # List of stages for jobs, and their order of execution
 
 install:
   stage: prep
+  image: node
   script:
     - npm ci
     - npm run format
