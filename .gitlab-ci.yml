@@ -15,6 +15,10 @@
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+variables:
+  API_TOKEN: $DEPLOYMENT_TOKEN
+  APP_PATH: '$CI_PROJECT_DIR'
+  OUTPUT_PATH: '$CI_PROJECT_DIR/build'
 
 stages:          # List of stages for jobs, and their order of execution
   - build
@@ -47,3 +51,9 @@ deploy-job:      # This job runs in the deploy stage.
   script:
     - echo "Deploying application..."
     - echo "Application successfully deployed."
+
+deploy:
+  stage: deploy
+  image: registry.gitlab.com/static-web-apps/azure-static-web-apps-deploy
+  script:
+    - echo "App deployed successfully."
